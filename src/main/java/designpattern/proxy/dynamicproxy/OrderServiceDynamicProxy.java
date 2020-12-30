@@ -12,7 +12,13 @@ import java.util.Date;
 /**
  * 数据源动态代理类
  * 说明：
- * 代理需要实现InvocationHandler的invoke方法
+ * 代理需要实现InvocationHandler的invoke方法，每一个动态代理类的调用处理程序都必须实现InvocationHandler接口，
+ * 并且每个代理类的实例都关联到了实现该接口的动态代理类调用处理程序中，当我们通过动态代理对象调用一个方法时候，
+ * 这个方法的调用就会被转发到实现InvocationHandler接口类的invoke方法来调用。
+ *
+ * Spring中代理模式的应用：
+ *  ProxyFactoryBean的getObject()方法的实现就应用了代理模式。
+ *  Spring利用动态代理实现AOP有两个类 JdkDynamicAopProxy和CglibAopProxy类，就是JDK动态代理和CGLib代理。
  */
 public class OrderServiceDynamicProxy implements InvocationHandler {
 
@@ -32,11 +38,7 @@ public class OrderServiceDynamicProxy implements InvocationHandler {
             Integer dbRouter = Integer.valueOf(yearFormat.format(new Date(time)));
             System.out.println("动态代理类自动分配到【DB"+dbRouter+"】数据源处理数据");
             DynamicDataSourceEntry.set(dbRouter);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

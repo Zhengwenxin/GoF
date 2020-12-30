@@ -1,5 +1,9 @@
 package designpattern.proxy.staticproxy;
 
+/**
+ * 父亲对象
+ *
+ */
 public class Father {
     private Son son;
     //没办法扩展
